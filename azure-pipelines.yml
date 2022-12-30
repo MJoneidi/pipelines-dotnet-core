@@ -23,11 +23,3 @@ stages:
         deploy:
           steps:
           - script: echo Hello world
-
-- stage: mj
-  - task: CmdLine@2
-    inputs:
-      script: |
-        echo Write your commands here
-        
-        echo Hello world

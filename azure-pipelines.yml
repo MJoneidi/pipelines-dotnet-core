@@ -6,13 +6,28 @@
 trigger:
 - master
 
-pool:
-  vmImage: ubuntu-latest
-
 variables:
   buildConfiguration: 'Release'
 
-steps:
-- script: dotnet build --configuration $(buildConfiguration)
-  displayName: 'dotnet build $(buildConfiguration)'
-  environment: 'mj-dev'
+stages: 
+- stage: deploy
+  jobs:
+  - deployment: DeployWeb
+    displayName: deploy Web App
+    pool:
+      vmImage: 'Ubuntu-latest'
+    # creates an environment if it doesn't exist
+    environment: 'mj-dev'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - script: echo Hello world
+
+- stage: mj
+  - task: CmdLine@2
+    inputs:
+      script: |
+        echo Write your commands here
+        
+        echo Hello world
